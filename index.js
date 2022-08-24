@@ -108,11 +108,12 @@ async function externalizeScript(html, assets) {
 function extractorFactory(builder, buildDir) {
 	const extractTo = (targetDir) => {
 		const outDir = join(buildDir, targetDir);
+		builder.mkdirp(outDir);
 		return async (sourcePath, tsConfig = {}) => {
-			const fullSourcePath = resolve(builder.config.kit.paths.base, sourcePath);
-			const isTypescript = extname(fullSourcePath) === 'ts';
+			const fullSourcePath = resolve(process.cwd(), sourcePath);
+			const isTypescript = extname(fullSourcePath) === '.ts';
 			const targetFileName = isTypescript ? basename(fullSourcePath, '.ts').concat('.js') : basename(fullSourcePath);
-			if (extname(fullSourcePath) === 'ts') {
+			if (isTypescript) {
 				const content = await readFile(fullSourcePath);
 				const js = ts.transpile(content.toString(), { allowJS: true, ...tsConfig });
 				await writeFile(join(outDir, targetFileName), js.toString());
@@ -157,13 +158,13 @@ export default function (opts = {}) {
 			if (!fallback && !builder.config.kit.prerender.default) {
 				builder.log.warn(
 					'You should set `config.kit.prerender.default` to `true` if no fallback is specified'
-				);
-			}
+					);
+				}
 			builder.rimraf(assets);
 			builder.rimraf(pages);
 			builder.writeClient(assets);
 			builder.writePrerendered(pages, { fallback });
-
+			
 			const index_page = join(assets, 'index.html');
 			const [index, provided_manifest] = await Promise.all([
 				readFile(index_page),
@@ -174,7 +175,7 @@ export default function (opts = {}) {
 			/** The content security policy of manifest_version 3 does not allow for inlined scripts.
 			 Until kit implements a config option (#1776) to externalize scripts, the below code block should do 
 			 for a quick and dirty externalization of the scripts' contents **/
-			if (merged_manifest.version !== 2) {
+			if (merged_manifest.manifest_version !== 2) {
 				const HTML_files = await glob('**/*.html', {
 					cwd: pages,
 					dot: true,
@@ -197,12 +198,12 @@ export default function (opts = {}) {
 			const extractor = extractorFactory(builder, pages);
 			const { background, content_scripts } = merged_manifest;
 			if (background) {
-				if (merged_manifest.version === 3 && 'service-worker' in background) {
-					const { 'service-worker': sourcePath, type } = background;
-					merged_manifest.background['service-worker'] = await extractor.js(sourcePath, { module: type === 'module' ? ts.ModuleKind.ES2022 : ts.ModuleKind.None });
+				if (merged_manifest.manifest_version === 3 && 'service_worker' in background) {
+					const { service_worker: sourcePath, type } = background;
+					merged_manifest.background.service_worker = await extractor.js(sourcePath, { module: type === 'module' ? ts.ModuleKind.ES2022 : ts.ModuleKind.None });
 				} else if ('scripts' in background) {
 					const { scripts } = background;
-					merged_manifest.background.scripts = await Promise.all(scripts.map(sourcePath => extractor.js(sourcePath, { module: ts.ModuleKind.None, target: 'ES5' })));
+					merged_manifest.background.scripts = await Promise.all(scripts.map(sourcePath => extractor.js(sourcePath, { module: ts.ModuleKind.UMD, target: 'ES5' })));
 				}
 			}
 			if (Array.isArray(content_scripts)) {
@@ -211,7 +212,7 @@ export default function (opts = {}) {
 					const [js, css] = await Promise.all(
 						['js', 'css'].map(prop =>
 							Promise.all((config[prop] || []).map(
-								sourcePath => extractor[prop](sourcePath, { module: ts.ModuleKind.None, target: 'ES5' }))
+								sourcePath => extractor[prop](sourcePath, { module: ts.ModuleKind.UMD, target: 'ES5' }))
 							)));
 					return { ...config, js, css };
 				}));

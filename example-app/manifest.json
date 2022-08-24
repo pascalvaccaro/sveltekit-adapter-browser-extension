@@ -15,7 +15,7 @@
     "storage"
   ],
   "background": {
-    "service_worker": "scripts/background.js",
+    "service_worker": "src/scripts/background.ts",
     "type": "module"
   },
   "content_scripts": [
@@ -24,7 +24,7 @@
       "matches": ["*://*/*"],
       "match_about_blank": false,
       "run_at": "document_idle",
-      "js": ["scripts/content.js"]
+      "js": ["src/scripts/content.ts"]
     }
   ],
   "sandbox": {
