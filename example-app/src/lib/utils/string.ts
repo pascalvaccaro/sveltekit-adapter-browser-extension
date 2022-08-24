@@ -1,5 +1,4 @@
-export const cookieParser = (request: Request) => {
-	const cookie = request.headers.get('cookie') ?? '';
+export const cookieParser = (cookie = '') => {
   const cookieMap = cookie
 		?.split(';')
 		.map((v) => v.split('='))

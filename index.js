@@ -40,7 +40,7 @@ function generate_manifest(html, manifest = {}) {
 			manifest_version: 2,
 			browser_action: {
 				default_title: 'SvelteKit',
-				default_popup: 'index.html'
+				default_popup: 'index.html',
 			},
 			content_security_policy: generate_csp(html),
 			...manifest,
@@ -50,12 +50,13 @@ function generate_manifest(html, manifest = {}) {
 		manifest_version: 3,
 		action: {
 			default_title: 'SvelteKit',
-			default_popup: 'index.html'
-		},
-		content_security_policy: {
-			extension_pages: "script-src 'self'; object-src 'self'",
+			default_popup: 'index.html',
 		},
 		...manifest,
+		content_security_policy: {
+			extension_pages: "script-src 'self'; object-src 'self'",
+			...(manifest.content_security_policy || {}),
+		},
 	};
 }
 
@@ -203,7 +204,7 @@ export default function (opts = {}) {
 					merged_manifest.background.service_worker = await extractor.js(sourcePath, { module: type === 'module' ? ts.ModuleKind.ES2022 : ts.ModuleKind.None });
 				} else if ('scripts' in background) {
 					const { scripts } = background;
-					merged_manifest.background.scripts = await Promise.all(scripts.map(sourcePath => extractor.js(sourcePath, { module: ts.ModuleKind.UMD, target: 'ES5' })));
+					merged_manifest.background.scripts = await Promise.all(scripts.map(sourcePath => extractor.js(sourcePath, { module: ts.ModuleKind.None, target: 'ES5' })));
 				}
 			}
 			if (Array.isArray(content_scripts)) {
@@ -212,7 +213,7 @@ export default function (opts = {}) {
 					const [js, css] = await Promise.all(
 						['js', 'css'].map(prop =>
 							Promise.all((config[prop] || []).map(
-								sourcePath => extractor[prop](sourcePath, { module: ts.ModuleKind.UMD, target: 'ES5' }))
+								sourcePath => extractor[prop](sourcePath, { module: ts.ModuleKind.None, target: 'ES5' }))
 							)));
 					return { ...config, js, css };
 				}));

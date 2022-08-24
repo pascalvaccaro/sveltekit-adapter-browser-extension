@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@hapi/hoek': ^9.2.1
-  '@sveltejs/kit': 1.0.0-next.431
+  '@sveltejs/kit': ^1.0.0-next.431
   cheerio: ^1.0.0-rc.10
   sjcl: ^1.0.8
   svelte: ^3.49.0

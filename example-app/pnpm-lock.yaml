@@ -21,7 +21,6 @@ specifiers:
   svelte: ^3.44.0
   svelte-check: ^2.7.1
   svelte-preprocess: ^4.10.6
-  sveltekit-adapter-browser-extension: file:../
   tiny-glob: ^0.2.9
   tslib: ^2.3.1
   typescript: ^4.7.4
@@ -30,8 +29,8 @@ specifiers:
 devDependencies:
   '@hapi/hoek': 10.0.1
   '@playwright/test': 1.25.1
-  '@sveltejs/adapter-auto': 1.0.0-next.65
-  '@sveltejs/kit': 1.0.0-next.431_svelte@3.49.0+vite@3.0.9
+  '@sveltejs/adapter-auto': 1.0.0-next.66
+  '@sveltejs/kit': 1.0.0-next.433_svelte@3.49.0+vite@3.0.9
   '@types/chrome': 0.0.195
   '@types/sjcl': 1.0.30
   '@typescript-eslint/eslint-plugin': 5.34.0_euudt5oqhhodkyae5tf6wjmsda
@@ -48,7 +47,6 @@ devDependencies:
   svelte: 3.49.0
   svelte-check: 2.8.1_thkoi4ginvzqq4a34fy77b2jca
   svelte-preprocess: 4.10.7_7qxsfysrtudvff6txgkaagfbne
-  sveltekit-adapter-browser-extension: file:.._p2q6jj3girgmmmve5jcg26aeiu
   tiny-glob: 0.2.9
   tslib: 2.4.0
   typescript: 4.7.4
@@ -113,10 +111,6 @@ packages:
 
   /@hapi/hoek/10.0.1:
     resolution: {integrity: sha512-CvlW7jmOhWzuqOqiJQ3rQVLMcREh0eel4IBnxDx2FAcK8g7qoJRQK4L1CPBASoCY6y8e6zuCy3f2g+HWdkzcMw==}
-    dev: true
-
-  /@hapi/hoek/9.3.0:
-    resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
     dev: true
 
   /@humanwhocodes/config-array/0.10.4:
@@ -233,27 +227,27 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.65:
-    resolution: {integrity: sha512-wYEcOeuCrswcmeOdmbaq+WxTp7vWN1fG1yPvmdzqe2LoUchOw6FQb6X/fR8miX6L8MXQXJteA0ntqE3FKqaBsw==}
+  /@sveltejs/adapter-auto/1.0.0-next.66:
+    resolution: {integrity: sha512-p78AQaSDHkLS5EFGqCF2xrLHMjKxx6wTLUvnP26cu2llh/VV4NihQ0rheVNgPWL+tGZpVznhrUG8fWmJxPciug==}
     dependencies:
-      '@sveltejs/adapter-cloudflare': 1.0.0-next.31
-      '@sveltejs/adapter-netlify': 1.0.0-next.71
-      '@sveltejs/adapter-vercel': 1.0.0-next.67
+      '@sveltejs/adapter-cloudflare': 1.0.0-next.32
+      '@sveltejs/adapter-netlify': 1.0.0-next.72
+      '@sveltejs/adapter-vercel': 1.0.0-next.68
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: true
 
-  /@sveltejs/adapter-cloudflare/1.0.0-next.31:
-    resolution: {integrity: sha512-HhEFZP72GJ8AZGgFECKIiayDcLaAWi65pI0AnBfiNhCifYSlH/mPNWNVD4AWRDnXnH6XU+FLwhGDnIDwytTyYg==}
+  /@sveltejs/adapter-cloudflare/1.0.0-next.32:
+    resolution: {integrity: sha512-tzkUsdQlBk9xUjcGUOBYos4HKaeaXvz9v4TQ1QS2yIHEtL5xvMEDPZ94/DB2gPL4LZCnYbdY2lsy5HCsoN0hkQ==}
     dependencies:
       '@cloudflare/workers-types': 3.14.1
       esbuild: 0.14.54
       worktop: 0.8.0-next.14
     dev: true
 
-  /@sveltejs/adapter-netlify/1.0.0-next.71:
-    resolution: {integrity: sha512-la1CGtWO1xul1L3zEoFAoc4EX2uxZjrZcOMS3tkKB8drxhbQsNbnTE6fmSSMFiZXhxaikczrBgQwqIaDkLTmZg==}
+  /@sveltejs/adapter-netlify/1.0.0-next.72:
+    resolution: {integrity: sha512-g570hYAMkgrJfo/TRg3DZFmlR7bNFHECFPOMgc8R+f28ROap/nXA8ICbiSBF7+zJ5JXvJbqHGjERSsyhEq+59g==}
     dependencies:
       '@iarna/toml': 2.2.5
       esbuild: 0.14.54
@@ -261,8 +255,8 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-vercel/1.0.0-next.67:
-    resolution: {integrity: sha512-xg85d/vlivbTaZu70zmaPNkrY1YZhDrcxljuwVWO0LCzA4DACIA7CnXI9klUiXM5SPpsB8BhY6dS8sW5cDYWzw==}
+  /@sveltejs/adapter-vercel/1.0.0-next.68:
+    resolution: {integrity: sha512-ImM+fDwGkVaf920Wzh284nfAfu/WoPXCpMwog0kveIODVgCozbpJY55fO860LccqdS0YDyeFqOUrZJCqcYNx4w==}
     dependencies:
       '@vercel/nft': 0.21.0
       esbuild: 0.14.54
@@ -271,8 +265,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.431_svelte@3.49.0+vite@3.0.9:
-    resolution: {integrity: sha512-kK3FCw0cBB/nqjgV8G9W5ctDxemQpkqxidsKVr3aEXSExm4mdM3MYgNf6y2OuvOH9zLD+/t6DAxQQC/RPxuz8Q==}
+  /@sveltejs/kit/1.0.0-next.433_svelte@3.49.0+vite@3.0.9:
+    resolution: {integrity: sha512-8vQFGvKMZYlSGNSafv4R2u1Q8WdsTY5W0qFLs8c6paiyuu9e/OeqbsyYfrDTan8dxxultNMPpgLrIBa0wGxguQ==}
     engines: {node: '>=16.9'}
     hasBin: true
     requiresBuild: true
@@ -3441,24 +3435,4 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  file:.._p2q6jj3girgmmmve5jcg26aeiu:
-    resolution: {directory: .., type: directory}
-    id: file:..
-    name: sveltekit-adapter-browser-extension
-    version: 0.3.0
-    peerDependencies:
-      '@sveltejs/kit': 1.0.0-next.431
-      svelte: ^3.49.0
-      tiny-glob: ^0.2.9
-      vite: ^3.0.9
-    dependencies:
-      '@hapi/hoek': 9.3.0
-      '@sveltejs/kit': 1.0.0-next.431_svelte@3.49.0+vite@3.0.9
-      cheerio: 1.0.0-rc.12
-      sjcl: 1.0.8
-      svelte: 3.49.0
-      tiny-glob: 0.2.9
-      vite: 3.0.9_sass@1.54.5
     dev: true

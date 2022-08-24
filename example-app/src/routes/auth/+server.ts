@@ -7,6 +7,6 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
   const password = form.get('password')?.toString() ?? '';
 
   const token = await login({ email, password });
-  setHeaders({ 'set-cookie': 'bearer=' + token });
+  setHeaders({ 'set-cookie': 'bearer=' + token.access_token });
   throw redirect(308, '/popup');
 }

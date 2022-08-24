@@ -1,21 +1,10 @@
 <script lang="ts">
-	import { browser } from '$app/env';
+	import { credentials } from '$lib/store/credentials';	
 	import LoginForm from '$lib/components/LoginForm.svelte';
-	import type { LayoutData } from './$types';
-
-	export let data: LayoutData;
-	let webextAccessToken = data.token;
-
-	if (browser && webextAccessToken) {
-		window.postMessage(
-			{ type: 'storage.set', payload: { credentials: webextAccessToken } },
-			window.location.origin
-		);
-	}
 </script>
 
 <main class="popup-container">
-	{#if webextAccessToken}
+	{#if $credentials.access_token}
 		<slot />
 	{:else}
 		<LoginForm />
@@ -26,8 +15,9 @@
 	.popup-container {
 		display: flex;
 		width: 100vw;
-		height: 4rem;
+		height: 100%;
 		justify-content: center;
+		background-color: white;
 	}
 
 	@media screen and (max-width: 320px) {

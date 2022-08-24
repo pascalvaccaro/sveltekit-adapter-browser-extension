@@ -1,5 +1,5 @@
-import adapter from 'sveltekit-adapter-browser-extension';
 import preprocess from 'svelte-preprocess';
+import adapter from '../index.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

@@ -16,19 +16,32 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 		);
 		const src = new URL('/popup.html', `chrome-extension://${chrome.runtime.id}`);
 		iframe.setAttribute('src', src.toString());
-		iframe.onload = () =>
-			iframe.contentWindow?.addEventListener('message', (event) => {
-				if (!event.data || !event.data.type || typeof event.data.type !== 'string') return;
-
-				if (
-					event.data.type === 'storage.set' &&
-					typeof event.data.payload === 'object' &&
-					event.data.payload
-				) {
-					// Use the iframe as a storage-sync element
-					chrome.storage.sync.set(event.data.payload);
-				}
-			});
 		document.body.appendChild(iframe);
+		chrome.storage.onChanged.addListener(({ credentials }, areaName) => {
+			if (
+				areaName === 'sync' &&
+				credentials.newValue &&
+				credentials.newValue !== credentials.oldValue
+			)
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				iframe.contentWindow!.postMessage({
+					type: 'credentials.set',
+					payload: credentials.newValue
+				});
+		});
+	}
+});
+
+window.addEventListener('message', (event) => {
+	console.log('origin', event.origin);
+	if (!event.data || !event.data.type || typeof event.data.type !== 'string') return;
+
+	if (
+		event.data.type === 'storage.set' &&
+		typeof event.data.payload === 'object' &&
+		event.data.payload
+	) {
+		// Use the iframe as a storage-sync element
+		chrome.storage.sync.set(event.data.payload);
 	}
 });
