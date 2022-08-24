@@ -197,7 +197,7 @@ export default function (opts = {}) {
 			const extractor = extractorFactory(builder, pages);
 			const { background, content_scripts } = merged_manifest;
 			if (background) {
-				if (manifestVersion === 3 && 'service-worker' in background) {
+				if (merged_manifest.version === 3 && 'service-worker' in background) {
 					const { 'service-worker': sourcePath, type } = background;
 					merged_manifest.background['service-worker'] = await extractor.js(sourcePath, { module: type === 'module' ? ts.ModuleKind.ES2022 : ts.ModuleKind.None });
 				} else if ('scripts' in background) {
