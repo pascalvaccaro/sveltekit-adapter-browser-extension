@@ -19,7 +19,7 @@ export default {
 			pages: 'build', // the output directory for the pages of your extension
 			assets: undefined, // the asset output directory is derived from pages if not specified explicitly
 			fallback: undefined, // set to true to output an SPA-like extension
-			manifestVersion: 3 // the version of the automatically generated manifest (Version 3 is required by Chrome).
+			manifest: {} // the manifest as a JSON object where you can put custom configuration values. The manifest.json file will take precedence
 		}),
 		appDir: 'ext', // This is important - chrome extensions can't handle the default _app directory name.
 		prerender: {
@@ -27,6 +27,57 @@ export default {
 		}
 	}
 };
+```
+
+### Background & Content Scripts
+
+You can use your own scripts as long as their paths is referenced is the source manifest.json.
+
+Considering the following folder structure
+
+```
+- node_modules/
+- src/
+	- styles/
+		- index.css
+	- scripts/
+		- content.ts
+		- background.ts
+		- other-content-script.js
+- manifest.json
+- package.json
+```
+
+Then your manifest.json should look like this
+
+```json
+{
+	"version": 3,
+	// ...
+	"content_scripts": [
+		{ "matches": "https://*/*", "js": "./src/scripts/content.ts" },
+		{ "matches": "http://*/*", "js": "./src/scripts/other-content-script.js" },
+	],
+	"background": {
+		"service-worker": "./src/scripts/background.ts",
+		"type": "module" // <= this is optional, leave it blank to load a classic script
+	}
+}
+```
+
+Your source manifest.json MUST reference the source path of your assets. The generated manifest will include the destination paths once your assets are bundled.
+
+### Content Styles
+
+You can also include custom CSS stylesheets along with your content script
+
+```json
+{
+	"content_scripts": [
+		{ "matches": "https://*/*", "css": ["./styles/index.css"] },
+		{ "matches": "http://*/*", "js": ["./src/scripts/other-content-script.js"] },
+	]
+}
 ```
 
 ## Try it

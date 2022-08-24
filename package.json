@@ -1,8 +1,9 @@
 {
   "name": "sveltekit-adapter-browser-extension",
   "version": "0.3.0",
+  "type": "module",
   "description": "Build cross-browser extensions with SvelteKit",
-  "main": "adapter-browser-extension.mjs",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,5 +13,15 @@
     "@hapi/hoek": "^9.2.1",
     "cheerio": "^1.0.0-rc.10",
     "sjcl": "^1.0.8"
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "1.0.0-next.431",
+    "svelte": "^3.49.0",
+    "vite": "^3.0.9"
+  },
+  "peerDependencies": {
+    "@sveltejs/kit": "1.0.0-next.431",
+    "svelte": "^3.49.0",
+    "vite": "^3.0.9"
   }
 }
