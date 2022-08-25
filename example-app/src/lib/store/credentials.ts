@@ -9,8 +9,7 @@ const handleMessage = (message: { type: string; payload: Credentials }) =>
 
 if (browser) {
 	const isWebextRuntime =
-		typeof chrome.storage === 'object' &&
-		typeof chrome.storage.onChanged === 'function';
+		typeof chrome.storage === 'object' && typeof chrome.storage.onChanged === 'function';
 
 	credentials.subscribe((newCreds) => {
 		const message = { type: 'storage.set', payload: { credentials: newCreds } };
